@@ -1,4 +1,4 @@
-import { Button, Grid } from "@harjs/react-ui";
+import { Button, ButtonGroup, Grid } from "@harjs/react-ui";
 import type { BorderRadiuses } from "@harjs/react-ui/types";
 
 type StoryProps = React.ComponentProps<typeof Button> & {
@@ -46,7 +46,7 @@ const ICON_MAP = {
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-const { Box } = Grid;
+const { Row, Column, Box } = Grid;
 
 const meta = {
   title: "FORM/Buttons/Button",
@@ -246,6 +246,9 @@ export const Variant: StoryObj<StoryProps> = {
         <Button variant="surface" {...args}>
           Surface
         </Button>
+        <Button variant="surface-borderless" {...args}>
+          Surface - Borderless
+        </Button>
         <Button variant="outlined" {...args}>
           Outlined
         </Button>
@@ -266,46 +269,237 @@ export const Color: StoryObj<StoryProps> = {
       disable: true,
     },
   },
-  args: {
-    variant: "filled",
-  },
   render: ({ ...args }) => {
     return (
-      <>
-        <Button {...args} color="red">
-          Red
-        </Button>
-        <Button {...args} color="orange">
-          Orange
-        </Button>
-        <Button {...args} color="yellow">
-          Yellow
-        </Button>
-        <Button {...args} color="green">
-          Green
-        </Button>
-        <Button {...args} color="teal">
-          Teal
-        </Button>
-        <Button {...args} color="cyan">
-          Cyan
-        </Button>
-        <Button {...args} color="blue">
-          Blue
-        </Button>
-        <Button {...args} color="purple">
-          Purple
-        </Button>
-        <Button {...args} color="pink">
-          Pink
-        </Button>
-        <Button {...args} color="gray">
-          Gray
-        </Button>
-        <Button {...args} color="light">
-          Light
-        </Button>
-      </>
+      <Row>
+        <Column>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <Button {...args} variant="filled" color="red">
+              Red
+            </Button>
+            <Button {...args} variant="filled" color="orange">
+              Orange
+            </Button>
+            <Button {...args} variant="filled" color="yellow">
+              Yellow
+            </Button>
+            <Button {...args} variant="filled" color="green">
+              Green
+            </Button>
+            <Button {...args} variant="filled" color="teal">
+              Teal
+            </Button>
+            <Button {...args} variant="filled" color="cyan">
+              Cyan
+            </Button>
+            <Button {...args} variant="filled" color="blue">
+              Blue
+            </Button>
+            <Button {...args} variant="filled" color="purple">
+              Purple
+            </Button>
+            <Button {...args} variant="filled" color="pink">
+              Pink
+            </Button>
+            <Button {...args} variant="filled" color="gray">
+              Gray
+            </Button>
+            <Button {...args} variant="filled" color="light">
+              Light
+            </Button>
+          </div>
+        </Column>
+
+        <Column>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <Button {...args} variant="surface" color="red">
+              Red
+            </Button>
+            <Button {...args} variant="surface" color="orange">
+              Orange
+            </Button>
+            <Button {...args} variant="surface" color="yellow">
+              Yellow
+            </Button>
+            <Button {...args} variant="surface" color="green">
+              Green
+            </Button>
+            <Button {...args} variant="surface" color="teal">
+              Teal
+            </Button>
+            <Button {...args} variant="surface" color="cyan">
+              Cyan
+            </Button>
+            <Button {...args} variant="surface" color="blue">
+              Blue
+            </Button>
+            <Button {...args} variant="surface" color="purple">
+              Purple
+            </Button>
+            <Button {...args} variant="surface" color="pink">
+              Pink
+            </Button>
+            <Button {...args} variant="surface" color="gray">
+              Gray
+            </Button>
+            <Button {...args} variant="surface" color="light">
+              Light
+            </Button>
+          </div>
+        </Column>
+
+        <Column>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <Button {...args} variant="surface-borderless" color="red">
+              Red
+            </Button>
+            <Button {...args} variant="surface-borderless" color="orange">
+              Orange
+            </Button>
+            <Button {...args} variant="surface-borderless" color="yellow">
+              Yellow
+            </Button>
+            <Button {...args} variant="surface-borderless" color="green">
+              Green
+            </Button>
+            <Button {...args} variant="surface-borderless" color="teal">
+              Teal
+            </Button>
+            <Button {...args} variant="surface-borderless" color="cyan">
+              Cyan
+            </Button>
+            <Button {...args} variant="surface-borderless" color="blue">
+              Blue
+            </Button>
+            <Button {...args} variant="surface-borderless" color="purple">
+              Purple
+            </Button>
+            <Button {...args} variant="surface-borderless" color="pink">
+              Pink
+            </Button>
+            <Button {...args} variant="surface-borderless" color="gray">
+              Gray
+            </Button>
+            <Button {...args} variant="surface-borderless" color="light">
+              Light
+            </Button>
+          </div>
+        </Column>
+
+        <Column>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <Button {...args} variant="outlined" color="red">
+              Red
+            </Button>
+            <Button {...args} variant="outlined" color="orange">
+              Orange
+            </Button>
+            <Button {...args} variant="outlined" color="yellow">
+              Yellow
+            </Button>
+            <Button {...args} variant="outlined" color="green">
+              Green
+            </Button>
+            <Button {...args} variant="outlined" color="teal">
+              Teal
+            </Button>
+            <Button {...args} variant="outlined" color="cyan">
+              Cyan
+            </Button>
+            <Button {...args} variant="outlined" color="blue">
+              Blue
+            </Button>
+            <Button {...args} variant="outlined" color="purple">
+              Purple
+            </Button>
+            <Button {...args} variant="outlined" color="pink">
+              Pink
+            </Button>
+            <Button {...args} variant="outlined" color="gray">
+              Gray
+            </Button>
+            <Button {...args} variant="outlined" color="light">
+              Light
+            </Button>
+          </div>
+        </Column>
+
+        <Column>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <Button {...args} variant="dashed" color="red">
+              Red
+            </Button>
+            <Button {...args} variant="dashed" color="orange">
+              Orange
+            </Button>
+            <Button {...args} variant="dashed" color="yellow">
+              Yellow
+            </Button>
+            <Button {...args} variant="dashed" color="green">
+              Green
+            </Button>
+            <Button {...args} variant="dashed" color="teal">
+              Teal
+            </Button>
+            <Button {...args} variant="dashed" color="cyan">
+              Cyan
+            </Button>
+            <Button {...args} variant="dashed" color="blue">
+              Blue
+            </Button>
+            <Button {...args} variant="dashed" color="purple">
+              Purple
+            </Button>
+            <Button {...args} variant="dashed" color="pink">
+              Pink
+            </Button>
+            <Button {...args} variant="dashed" color="gray">
+              Gray
+            </Button>
+            <Button {...args} variant="dashed" color="light">
+              Light
+            </Button>
+          </div>
+        </Column>
+
+        <Column>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+            <Button {...args} variant="borderless" color="red">
+              Red
+            </Button>
+            <Button {...args} variant="borderless" color="orange">
+              Orange
+            </Button>
+            <Button {...args} variant="borderless" color="yellow">
+              Yellow
+            </Button>
+            <Button {...args} variant="borderless" color="green">
+              Green
+            </Button>
+            <Button {...args} variant="borderless" color="teal">
+              Teal
+            </Button>
+            <Button {...args} variant="borderless" color="cyan">
+              Cyan
+            </Button>
+            <Button {...args} variant="borderless" color="blue">
+              Blue
+            </Button>
+            <Button {...args} variant="borderless" color="purple">
+              Purple
+            </Button>
+            <Button {...args} variant="borderless" color="pink">
+              Pink
+            </Button>
+            <Button {...args} variant="borderless" color="gray">
+              Gray
+            </Button>
+            <Button {...args} variant="borderless" color="light">
+              Light
+            </Button>
+          </div>
+        </Column>
+      </Row>
     );
   },
 };
@@ -329,6 +523,9 @@ export const Error: StoryObj<StoryProps> = {
         <Button variant="surface" {...args}>
           {args.children}
         </Button>
+        <Button variant="surface-borderless" {...args}>
+          {args.children}
+        </Button>
         <Button variant="outlined" {...args}>
           {args.children}
         </Button>
@@ -340,6 +537,21 @@ export const Error: StoryObj<StoryProps> = {
         </Button>
       </>
     );
+  },
+};
+
+export const Disabled: StoryObj<StoryProps> = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  args: {
+    children: "Disabled Button",
+    disabled: true,
+  },
+  render: ({ ...args }) => {
+    return <Button {...args}>{args.children}</Button>;
   },
 };
 
@@ -422,6 +634,28 @@ export const FullWidth: StoryObj<StoryProps> = {
       <Button {...args} fullWidth>
         Append
       </Button>
+    );
+  },
+};
+
+export const Group: StoryObj<StoryProps> = {
+  name: "Button Group",
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  args: {
+    variant: "outlined",
+    color: "blue",
+  },
+  render: ({ ...args }) => {
+    return (
+      <ButtonGroup {...args}>
+        <Button>Save</Button>
+        <Button color="orange">Save as Draft</Button>
+        <Button color="light">Cancel</Button>
+      </ButtonGroup>
     );
   },
 };

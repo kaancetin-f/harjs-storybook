@@ -20,11 +20,21 @@ importance of the action.
 
 <Canvas of={ButtonStories.Variant} />
 
+<h3>Color</h3>
+
+Defines the theme color palette for the button. Supports brand colors (Primary, Secondary) or status colors (Success, Warning).
+
+<Canvas of={ButtonStories.Color} />
+
 <h3>Error</h3>
 
 Represents the destructive/danger state. Used to emphasize critical or irreversible actions like deletion or cancellation.
 
 <Canvas of={ButtonStories.Error} />
+
+<h3>Disabled</h3>
+
+<Canvas of={ButtonStories.Disabled} />
 
 <h3>Size</h3>
 
@@ -43,6 +53,13 @@ Allows adding an icon to the left or right of the button text to visually reinfo
 Forces the button to take up 100% width of its parent container. Ideal for mobile layouts and full-width forms.
 
 <Canvas of={ButtonStories.FullWidth} />
+
+<h3>Button Group</h3>
+
+Use the ButtonGroup component to group buttons together. This component allows you pass common recipe properties to
+inner buttons.
+
+<Canvas of={ButtonStories.Group} />
 
 <h3>Interactive Preview</h3>
 
