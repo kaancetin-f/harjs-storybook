@@ -1,0 +1,75 @@
+import { Meta, Canvas, Story, Controls, ArgTypes, Description, Title, Subtitle } from "@storybook/addon-docs/blocks";
+
+import * as SwitchStories from "./Switch.stories";
+
+<Meta of={SwitchStories} />
+
+<Title />
+
+`Switch` is the form component used to capture a single on/off value, such as toggling a
+setting or a feature flag. It renders as a labeled toggle built on top of a native checkbox
+input, and supports a hybrid controlled/uncontrolled usage pattern: pass `checked` together
+with `onChange` for a fully controlled switch, or omit them and let the component manage its
+own toggle state internally.
+
+> **Note:** All examples below are live — you can use Storybook's Controls panel to change
+> props and instantly test the component's behavior.
+
+---
+
+## Color
+
+The `color` prop supports the same wide range of color options as the other form components
+so it can align with your brand palette. Color only takes effect while the switch is
+checked — the unchecked track always renders in gray, which keeps a row of switches in an
+"off" state visually calm regardless of the colors assigned to each one.
+
+<Canvas of={SwitchStories.Color} />
+
+## Disabled
+
+When the `disabled` prop is set to `true`, the switch can no longer be toggled by click or
+keyboard and is rendered in a dimmed state. This is used for settings that depend on another
+option, permission restrictions, or values controlled entirely elsewhere in the UI.
+
+<Canvas of={SwitchStories.Disabled} />
+
+## Border Radius
+
+Corner rounding can be customized through the `border.radius` prop and defaults to a fully
+rounded ("full") pill shape, which is the conventional look for toggle switches. Squarer
+values are available for design systems that favor sharper corners across all of their form
+controls for visual consistency.
+
+<Canvas of={SwitchStories.BorderRadius} />
+
+## With Label
+
+The `label` prop renders a text next to the switch. Since the switch and the label share the
+same `<label>` element, clicking anywhere on the text also toggles the switch, which enlarges
+the clickable area and improves usability — especially on touch devices.
+
+<Canvas of={SwitchStories.WithLabel} />
+
+## Uncontrolled Usage
+
+`Switch` can also be used without externally managing its `checked` value: when the prop is
+omitted, the component initializes to `false` and then tracks clicks using its own internal
+state. `onChange` still fires on every toggle, so it remains useful for reacting to the
+change (e.g. saving a setting) even when the value itself isn't fed back into the component.
+
+<Canvas of={SwitchStories.Uncontrolled} />
+
+---
+
+## All Props (API Reference)
+
+The table below lists all the props supported by the `Switch` component, along with their
+types and default values. `Switch` inherits `IVariantProps`, `IIconProps`, `ISizeProps`,
+`IUpperCaseProps`, and `IValidationProps` from the same shared interfaces used by `Input`,
+`Select`, and `DatePicker` for type consistency across form components — these are listed
+below under the "Inherited (Unused)" category since the current `Switch` implementation does
+not use them to affect rendering. For detailed type definitions, see the
+`@harjs/react-ui/types` package.
+
+<ArgTypes of={SwitchStories.Editor} />

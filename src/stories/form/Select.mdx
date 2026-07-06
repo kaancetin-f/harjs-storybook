@@ -1,0 +1,141 @@
+import { Meta, Canvas, Story, Controls, ArgTypes, Description, Title, Subtitle } from "@storybook/addon-docs/blocks";
+
+import * as SelectStories from "./Select.stories";
+
+<Meta of={SelectStories} />
+
+<Title />
+
+`Select` is the form component used to choose one or more values from a predefined list of
+options. It reuses `Input`'s color, variant, size, and border radius options for its closed
+field so it can be dropped into the same forms as `Input` without breaking visual
+consistency, while adding its own floating options panel, keyboard navigation, single/
+multiple selection modes, inline option creation, and external search support.
+
+> **Note:** All examples below are live — you can use Storybook's Controls panel to change
+> props and instantly test the component's behavior.
+
+---
+
+## Variant
+
+`Select` offers the same visual variants as `Input` for its closed field, each carrying a
+different level of emphasis. Variants with a stronger border stand out more clearly in
+standard forms, while softer, borderless options blend into the surrounding interface and
+work well for embedded or low-emphasis contexts. For consistency in your design language,
+it's recommended to use a single variant within the same form, including any `Select` fields
+placed alongside regular `Input` fields.
+
+<Canvas of={SelectStories.Variant} />
+
+## Color
+
+The component supports the same wide range of color options as `Input` so it can align with
+your brand palette. The matrix below shows a side-by-side comparison of each color across
+the core variants, both empty and pre-filled with a selection. This should be used as a
+reference when choosing the correct color, especially for validation states such as error,
+warning, and success.
+
+## Disabled
+
+When the `disabled` prop is set to `true`, the field is closed off to user interaction, the
+options panel can no longer be opened, and the field is visually dimmed with the cursor
+switching to `not-allowed`. This state is used for read-only data, permission restrictions,
+or fields waiting for a previous step to be completed.
+
+<Canvas of={SelectStories.Disabled} />
+
+## Read Only
+
+When the `readOnly` prop is set to `true`, the field's text can no longer be typed into
+directly, but clicking it still opens the options panel so an existing selection can be
+changed. This is useful when free-text search/filtering should be disabled while keeping the
+ability to pick from the list.
+
+<Canvas of={SelectStories.ReadOnly} />
+
+## Border Radius
+
+Corner rounding can be customized across the same range of options available on `Input` and
+is an important visual variable that determines the overall "hard/soft" feel of your design
+system. For consistency across the project, it's generally recommended to use a single
+border radius value across all forms.
+
+<Canvas of={SelectStories.Radius} />
+
+## Size
+
+The component offers the same height options as `Input`. Smaller sizes are preferred for
+compact contexts like in-table editing, mid-range sizes serve as the default for standard
+forms, and larger sizes are used on mobile or for fields that need to stand out and draw
+attention.
+
+<Canvas of={SelectStories.Size} />
+
+## Validation
+
+Displays validation feedback such as error or success states. The `config.validation.text`
+option additionally controls whether the message text itself is rendered under the field
+('visible') or only used to switch the field to its error color without showing the message
+('hidden') — useful when the surrounding form already displays the error elsewhere.
+
+<Canvas of={SelectStories.Validation} />
+
+## Clear Button
+
+The `config.clear` option controls whether a clear ('x') button is rendered inside the
+field. When enabled, the current selection (or, in multiple mode, the entire set of selected
+chips) can be removed in a single click without opening the options panel. Disable it for
+fields where a selection is required and shouldn't be trivially clearable.
+
+<Canvas of={SelectStories.ClearButton} />
+
+## Search
+
+Typing into the field filters the visible options locally by default. When the `onSearch`
+callback is provided, filtering responsibility is instead handed off to the parent — this is
+the pattern to use when options are paginated or fetched from a server as the user types,
+rather than filtered from an already-loaded list.
+
+<Canvas of={SelectStories.WithSearch} />
+
+## Create (Add New Option)
+
+When the `onCreate` callback is provided, an 'add new option' row is rendered whenever the
+typed search text doesn't match any existing option. Selecting it calls `onCreate` with the
+typed text so a new option can be created (e.g. persisted to a backend) and immediately
+selected, which is useful for tag-like or freeform-entry fields.
+
+<Canvas of={SelectStories.WithCreate} />
+
+## Multiple Selection
+
+Setting `multiple` to `true` switches the field to multi-select mode: selected options are
+rendered as `Chip` elements inside the field, a dedicated search box is shown at the top of
+the options panel, and each option in the list is paired with a checkbox reflecting its
+selection state. The `status.color` and `status.selected.variant` / `status.selected.color`
+options control the default appearance of the chips.
+
+<Canvas of={SelectStories.Multiple} />
+
+---
+
+## All Props (API Reference)
+
+The table below lists the props supported by `Select` in single-selection mode, along with
+their types and default values. `Select` inherits most props from `Input` (excluding `value`
+and `onChange`, whose signatures are replaced to work with `Option` objects) and adds its own
+`options`, `onSearch`, `onClick`, `onCreate`, `readOnly`, and `config` props — the latter
+exposed here as individual `Clear` and `Validation Text Visibility` controls. For detailed
+type definitions, see the `@harjs/react-ui/types` package.
+
+<ArgTypes of={SelectStories.Editor} />
+
+## Multiple Selection Props
+
+When `multiple` is `true`, `value` becomes `Option[]`, `onChange` receives the full updated
+`Option[]`, and `status` takes the shape `{ color?: Color; selected?: { variant?: Variants;
+color?: Color } }` used to style the selected chips, shown below as `Status Color`,
+`Selected Variant`, and `Selected Color`.
+
+<ArgTypes of={SelectStories.Multiple} />

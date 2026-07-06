@@ -1,0 +1,67 @@
+import { Meta, Canvas, Story, Controls, ArgTypes, Description, Title, Subtitle } from "@storybook/addon-docs/blocks";
+
+import * as TextEditorStories from "./TextEditor.stories";
+
+<Meta of={TextEditorStories} />
+
+<Title />
+
+`TextEditor` is the rich text form component used to capture formatted content — bold,
+italic, underline, and both bulleted and numbered lists — through a toolbar built around a
+sandboxed, editable iframe. Its value is stored and reported as an HTML string, and it
+additionally supports an optional `@mention`-style tagging panel (`dynamicList`) for linking
+free text to structured data such as users or records.
+
+> **Note:** All examples below are live — you can use Storybook's Controls panel to change
+> props and instantly test the component's behavior.
+
+---
+
+## Disabled
+
+When the `disabled` prop is set to `true`, the underlying iframe's `designMode` is turned
+off, so its content can no longer be edited. This is used for read-only content, permission
+restrictions, or fields waiting for a previous step to be completed.
+
+<Canvas of={TextEditorStories.Disabled} />
+
+## Validation
+
+Displays validation feedback such as error or success states. The editor's border switches
+to red and a validation message is rendered beneath the field whenever `validation.text` is
+provided, and the floating placeholder label is prefixed with `* ` to flag the field as
+required.
+
+<Canvas of={TextEditorStories.Validation} />
+
+## Height
+
+The `height` prop sets the editor's initial height in pixels. A resize handle is also
+rendered at the bottom-right corner of the editor, letting users grow it further at runtime
+for content that needs more room, such as long-form notes or descriptions.
+
+<Canvas of={TextEditorStories.Height} />
+
+## Dynamic List (Mentions)
+
+The `dynamicList` prop turns on an `@mention`-style tagging panel: typing the trigger
+character (`@` by default, configurable via `triggerKey`) opens a floating list built from
+`dynamicList.render.items`, filtered live against whatever is typed after the trigger.
+Selecting an item inserts it as a styled, non-editable tag in the content and calls
+`dynamicList.onTagged` with the full set of currently tagged items — useful for building
+comment boxes or notes that reference users, tickets, or other records by name.
+
+<Canvas of={TextEditorStories.WithDynamicList} />
+
+---
+
+## All Props (API Reference)
+
+The table below lists all the props supported by the `TextEditor` component, along with
+their types and default values. `TextEditor` inherits `IValidationProps`, `IColorProps`, and
+`IDisabledProps` from the same shared interfaces used by `Input`, `Select`, `DatePicker`, and
+`Switch` for type consistency across form components. Unlike those components, `TextEditor`
+does not accept a `variant` or `border` prop — its outlined style and `4` border radius are
+currently fixed. For detailed type definitions, see the `@harjs/react-ui/types` package.
+
+<ArgTypes of={TextEditorStories.Editor} />
