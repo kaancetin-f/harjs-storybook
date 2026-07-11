@@ -11,15 +11,15 @@ options from a list, or toggle a single binary choice (e.g. "I agree to the term
 conditions"). It comes with multiple color, variant, size, and border radius options, and
 can be grouped together with `CheckboxGroup` to manage a related set of choices.
 
+> **Note:** All examples below are live — you can use Storybook's Controls panel to change
+> props and instantly test the component's behavior.
+
 > **Note:** Use `Checkbox` when multiple options can be selected at the same time. If the
 > user must choose only _one_ option from a list, use a **Radio Button** instead.
 
 ```typescript
 import { Checkbox, CheckboxGroup } from "@harjs/react-ui";
 ```
-
-> **Note:** All examples below are live — you can use Storybook's Controls panel to change
-> props and instantly test the component's behavior.
 
 ---
 
@@ -44,15 +44,14 @@ build a reliable mental model of what each color means.
 
 <Canvas of={CheckboxStories.Color} />
 
-## Disabled
+## Size
 
-Prevents any user interaction while visually indicating that the checkbox is currently
-inactive — the field is dimmed and the cursor switches to `not-allowed`. This is useful for
-conditional forms where a choice depends on another field being filled in first, or for
-options that are temporarily unavailable. For accessibility, `disabled` checkboxes are also
-automatically skipped by screen readers.
+The component offers multiple size options that can be chosen based on context. Smaller
+sizes are preferred for compact, dense lists where many options are shown at once, while
+larger sizes improve touch-target area and visibility on mobile or in forms where the
+choice needs to stand out.
 
-<Canvas of={CheckboxStories.Disabled} />
+<Canvas of={CheckboxStories.Size} />
 
 ## Border Radius
 
@@ -65,14 +64,15 @@ all form controls.
 
 <Canvas of={CheckboxStories.Radius} />
 
-## Size
+## Disabled
 
-The component offers multiple size options that can be chosen based on context. Smaller
-sizes are preferred for compact, dense lists where many options are shown at once, while
-larger sizes improve touch-target area and visibility on mobile or in forms where the
-choice needs to stand out.
+Prevents any user interaction while visually indicating that the checkbox is currently
+inactive — the field is dimmed and the cursor switches to `not-allowed`. This is useful for
+conditional forms where a choice depends on another field being filled in first, or for
+options that are temporarily unavailable. For accessibility, `disabled` checkboxes are also
+automatically skipped by screen readers.
 
-<Canvas of={CheckboxStories.Size} />
+<Canvas of={CheckboxStories.Disabled} />
 
 ## Validation
 

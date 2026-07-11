@@ -12,15 +12,15 @@ group, automatically deselecting the previous option when a new one is chosen. I
 with multiple color, variant, and size options, and can be grouped together with
 `RadioGroup` to manage a related set of mutually exclusive choices.
 
+> **Note:** All examples below are live — you can use Storybook's Controls panel to change
+> props and instantly test the component's behavior.
+
 > **Note:** Use `Radio` when the user must choose **only one** option from a list. If
 > multiple options can be selected independently, use a **Checkbox** instead.
 
 ```typescript
 import { Radio, RadioGroup } from "@harjs/react-ui";
 ```
-
-> **Note:** All examples below are live — you can use Storybook's Controls panel to change
-> props and instantly test the component's behavior.
 
 ---
 
@@ -43,6 +43,15 @@ the project helps users build a reliable mental model of what each color means.
 
 <Canvas of={RadioStories.Color} />
 
+## Size
+
+The component offers multiple size options that can be chosen based on context. Smaller
+sizes are preferred for compact, dense lists where many options are shown at once, while
+larger sizes improve touch-target area and visibility on mobile or in forms where the
+decision needs to stand out.
+
+<Canvas of={RadioStories.Size} />
+
 ## Disabled
 
 Prevents user interaction while clearly indicating that the option is currently
@@ -52,15 +61,6 @@ for choices that are temporarily inaccessible. For accessibility, `disabled` opt
 also automatically skipped by screen readers.
 
 <Canvas of={RadioStories.Disabled} />
-
-## Size
-
-The component offers multiple size options that can be chosen based on context. Smaller
-sizes are preferred for compact, dense lists where many options are shown at once, while
-larger sizes improve touch-target area and visibility on mobile or in forms where the
-decision needs to stand out.
-
-<Canvas of={RadioStories.Size} />
 
 ## Validation
 

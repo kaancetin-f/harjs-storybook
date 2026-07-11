@@ -1,5 +1,4 @@
 import type { Preview } from "@storybook/nextjs-vite";
-import ICON_MAP from "../src/infrustructure/shared/IconMap";
 
 const preview: Preview = {
   parameters: {
@@ -37,6 +36,7 @@ const preview: Preview = {
       options: ["filled", "surface", "outlined", "dashed", "borderless"],
       description: "It determines the visual style variation and background design of the component.",
       table: {
+        category: "Base Properties",
         type: { summary: "string" },
         defaultValue: { summary: "Surface" },
       },
@@ -60,10 +60,7 @@ const preview: Preview = {
       },
       options: ["blue", "purple", "pink", "red", "orange", "yellow", "green", "teal", "cyan", "gray"],
       description: "The design system applies one of the defined color palette themes to the button.",
-      table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "Blue" },
-      },
+      table: { category: "Base Properties", type: { summary: "string" }, defaultValue: { summary: "Blue" } },
     },
     size: {
       name: "Size",
@@ -80,29 +77,19 @@ const preview: Preview = {
       },
       options: ["xs", "sm", "md", "lg", "xl", "xxl"],
       description: "Scaling the button's padding and font size.",
-      table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "SM" },
-      },
+      table: { category: "Base Properties", type: { summary: "string" }, defaultValue: { summary: "SM" } },
     },
     upperCase: {
       name: "Upper Case",
       control: { type: "boolean" },
       description: "When enabled, automatically transforms all characters within the button text to `uppercase`.",
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "False" },
-      },
+      table: { category: "Base Properties", type: { summary: "boolean" }, defaultValue: { summary: "False" } },
     },
-
     disabled: {
       name: "Disabled",
       control: { type: "boolean" },
       description: "When true, prevents user interaction and applies an inactive visual state to the entire component.",
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "False" },
-      },
+      table: { category: "Base Properties", type: { summary: "boolean" }, defaultValue: { summary: "False" } },
     },
 
     // #region Icon Settings
@@ -145,20 +132,24 @@ const preview: Preview = {
       control: {
         type: "select",
         labels: {
-          sm: "SM",
-          lg: "LG",
-          xl: "XL",
-          xxl: "XXL",
-          pill: "PILL",
-          none: "NONE",
+          0: "0",
+          2: "2",
+          4: "4",
+          6: "6",
+          8: "8",
+          12: "12",
+          16: "16",
+          20: "20",
+          40: "40",
+          full: "full",
         },
       },
-      options: ["sm", "lg", "xl", "xxl", "pill", "none"],
+      options: ["0", "2", "4", "6", "8", "12", "16", "20", "40", "full"],
       description: "Configures the radius (corner rounding) value within the border object.",
       table: {
         category: "Border",
         type: { summary: "string" },
-        defaultValue: { summary: "SM" },
+        defaultValue: { summary: "4" },
       },
     },
     // #endregion

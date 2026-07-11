@@ -1,7 +1,6 @@
-import { COLOR_OPTIONS, RADIUS_OPTIONS, SIZE_OPTIONS, VARIANT_OPTIONS } from "@/infrustructure/shared/Array";
-import ICON_MAP from "@/infrustructure/shared/IconMap";
+import Options from "@/infrustructure/shared/Options";
 import { Button, Grid, Input, Select } from "@harjs/react-ui";
-import { Option, type BorderRadiuses } from "@harjs/react-ui/types";
+import type { Option, BorderRadiuses } from "@harjs/react-ui/types";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
@@ -10,7 +9,7 @@ const { Row, Column, Flex } = Grid;
 type StoryProps = React.ComponentProps<typeof Input> & {
   borderRadius?: BorderRadiuses;
   icon?: any;
-  iconElement?: keyof ReturnType<typeof ICON_MAP>;
+  iconElement?: any;
   iconPosition?: "start" | "end";
   addonBefore: React.ReactNode;
   addonAfter: React.ReactNode;
@@ -91,15 +90,39 @@ export const Color: Story = {
   args: { width: 65, placeholder: "..." },
   render: (args) => (
     <Flex flexDirection="column" gap="16px">
-      {VARIANT_OPTIONS.map((variant) => (
+      {Options.Variant.map((variant) => (
         <Flex key={variant} flexDirection="row" alignItems="center" gap="12px" flexWrap="wrap">
-          {COLOR_OPTIONS.map((color) => (
+          {Options.Color.map((color) => (
             <Flex key={`${variant}-${color}`} flexDirection="column" gap="4px">
               <Input {...args} variant={variant} color={color} />
               <Input {...args} variant={variant} color={color} value="HarJS" />
             </Flex>
           ))}
         </Flex>
+      ))}
+    </Flex>
+  ),
+};
+
+export const Size: Story = {
+  parameters: { controls: { disable: true } },
+  args: { color: "gray" },
+  render: (args) => (
+    <Flex flexDirection="column" gap="15px">
+      {Options.Size.map((size) => (
+        <Input key={size} {...args} size={size} placeholder={`Size ${size}`} />
+      ))}
+    </Flex>
+  ),
+};
+
+export const Radius: Story = {
+  parameters: { controls: { disable: true } },
+  args: { color: "gray" },
+  render: (args) => (
+    <Flex flexDirection="column" gap="15px">
+      {Options.Radius.map((radius) => (
+        <Input key={radius} {...args} border={{ radius }} placeholder={`Radius ${radius}`} />
       ))}
     </Flex>
   ),
@@ -119,41 +142,20 @@ export const Disabled: Story = {
   ),
 };
 
-export const Radius: Story = {
-  parameters: { controls: { disable: true } },
-  args: { color: "gray" },
-  render: (args) => (
-    <Flex flexDirection="column" gap="15px">
-      {RADIUS_OPTIONS.map((radius) => (
-        <Input key={radius} {...args} border={{ radius }} placeholder={`Radius ${radius}`} />
-      ))}
-    </Flex>
-  ),
-};
-
-export const Size: Story = {
-  parameters: { controls: { disable: true } },
-  args: { color: "gray" },
-  render: (args) => (
-    <Flex flexDirection="column" gap="15px">
-      {SIZE_OPTIONS.map((size) => (
-        <Input key={size} {...args} size={size} placeholder={`Size ${size}`} />
-      ))}
-    </Flex>
-  ),
-};
-
 export const Validation: Story = {
   parameters: { controls: { disable: true } },
   args: { color: "gray", validation: { text: "Value is required." } },
-  render: (args) => <Input {...args} placeholder="Validation Input" />,
+  render: (args) => (
+    <Row>
+      <Column size={12}>
+        <Input {...args} placeholder="Validation Input" />
+      </Column>
+      <Column size={12}>
+        <Input {...args} placeholder="Validation Input" />
+      </Column>
+    </Row>
+  ),
 };
-
-const userCircleIcon = ICON_MAP("var(--gray-500)").UserCircle;
-const atIcon = ICON_MAP("var(--gray-500)").At;
-const passwordIcon = ICON_MAP("var(--gray-500)").Password;
-const eyeIcon = ICON_MAP("var(--gray-500)").Eye;
-const eyeClosedIcon = ICON_MAP("var(--gray-500)").EyeClosed;
 
 export const WithIcon: Story = {
   parameters: { controls: { disable: true } },
@@ -169,13 +171,13 @@ export const WithIcon: Story = {
         <Row>
           <Column size={6}>
             <Input {...args} placeholder="Username">
-              <Input.Icon position="start">{userCircleIcon}</Input.Icon>
+              <Input.Icon position="start">{<i className="ph ph-user"></i>}</Input.Icon>
             </Input>
           </Column>
 
           <Column size={6}>
             <Input {...args} placeholder="E-Mail">
-              <Input.Icon position="start">{atIcon}</Input.Icon>
+              <Input.Icon position="start">{<i className="ph ph-at"></i>}</Input.Icon>
             </Input>
           </Column>
         </Row>
@@ -183,9 +185,9 @@ export const WithIcon: Story = {
         <Row>
           <Column size={12}>
             <Input {...args} type={isPasswordVisible ? "text" : "password"} placeholder="Password">
-              <Input.Icon position="start">{passwordIcon}</Input.Icon>
+              <Input.Icon position="start">{<i className="ph ph-password"></i>}</Input.Icon>
               <Input.Icon position="end" onClick={() => setIsPasswordVisible((prev) => !prev)}>
-                {isPasswordVisible ? eyeIcon : eyeClosedIcon}
+                {isPasswordVisible ? <i className="ph ph-eye"></i> : <i className="ph ph-eye-closed"></i>}
               </Input.Icon>
             </Input>
           </Column>
@@ -210,7 +212,7 @@ export const Addons: Story = {
       </Input>
 
       <span>Your vanity URL</span>
-      <Input {...args} placeholder="...">
+      <Input {...args} placeholder="..." validation={{ text: "Your vanity URL is required." }}>
         <Input.AddonBefore>https://example.com/users/</Input.AddonBefore>
       </Input>
     </Flex>

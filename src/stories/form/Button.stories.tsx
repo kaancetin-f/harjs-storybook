@@ -1,4 +1,4 @@
-import { RADIUS_OPTIONS, SIZE_OPTIONS } from "@/infrustructure/shared/Array";
+import Options from "@/infrustructure/shared/Options";
 import ICON_MAP from "@/infrustructure/shared/IconMap";
 import { Button, ButtonAction, ButtonGroup, Grid } from "@harjs/react-ui";
 import type { BorderRadiuses } from "@harjs/react-ui/types";
@@ -197,14 +197,11 @@ export const Color: StoryObj<StoryProps> = {
     },
   },
   render: ({ ...args }) => {
-    const colors = ["blue", "purple", "pink", "red", "orange", "yellow", "green", "teal", "cyan", "gray"] as const;
-    const variants = ["filled", "surface", "surface-borderless", "outlined", "dashed", "borderless"] as const;
-
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        {variants.map((variant) => (
+        {Options.Variant.map((variant) => (
           <div key={variant} style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-            {colors.map((color) => (
+            {Options.Color.map((color) => (
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <Button {...args} key={`${variant}-${color}`} variant={variant} color={color}>
                   {color.charAt(0).toLocaleUpperCase()}
@@ -216,6 +213,79 @@ export const Color: StoryObj<StoryProps> = {
         ))}
       </div>
     );
+  },
+};
+
+export const Size: StoryObj<StoryProps> = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  args: {
+    color: "blue",
+  },
+  render: ({ ...args }) => {
+    return (
+      <>
+        {Options.Size.map((size) => (
+          <Button variant="filled" size={size} {...args}>
+            Button {size}
+          </Button>
+        ))}
+      </>
+    );
+
+    return (
+      <>
+        <Button variant="filled" size="sm" {...args}>
+          Small
+        </Button>
+        <Button variant="filled" size="md" {...args}>
+          Normal
+        </Button>
+        <Button variant="filled" size="lg" {...args}>
+          Large
+        </Button>
+      </>
+    );
+  },
+};
+
+export const Radius: StoryObj<StoryProps> = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  args: {
+    color: "blue",
+  },
+  render: ({ ...args }) => {
+    return (
+      <Flex flexDirection="column" gap={"15px"}>
+        {Options.Radius.map((radius) => (
+          <Button key={radius} {...args} border={{ radius }}>
+            Radius {radius}
+          </Button>
+        ))}
+      </Flex>
+    );
+  },
+};
+
+export const Disabled: StoryObj<StoryProps> = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  args: {
+    children: "Disabled Button",
+    disabled: true,
+  },
+  render: ({ ...args }) => {
+    return <Button {...args}>{args.children}</Button>;
   },
 };
 
@@ -255,83 +325,6 @@ export const Error: StoryObj<StoryProps> = {
   },
 };
 
-export const Disabled: StoryObj<StoryProps> = {
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-  args: {
-    children: "Disabled Button",
-    disabled: true,
-  },
-  render: ({ ...args }) => {
-    return <Button {...args}>{args.children}</Button>;
-  },
-};
-
-export const Radius: StoryObj<StoryProps> = {
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-  args: {
-    color: "blue",
-  },
-  render: ({ ...args }) => {
-    return (
-      <Flex flexDirection="column" gap={"15px"}>
-        {RADIUS_OPTIONS.map((radius) => (
-          <Button key={radius} {...args} border={{ radius }}>
-            Radius {radius}
-          </Button>
-        ))}
-      </Flex>
-    );
-  },
-};
-
-export const Size: StoryObj<StoryProps> = {
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-  args: {
-    color: "blue",
-  },
-  render: ({ ...args }) => {
-    return (
-      <>
-        {SIZE_OPTIONS.map((size) => (
-          <Button variant="filled" size={size} {...args}>
-            Button {size}
-          </Button>
-        ))}
-      </>
-    );
-
-    return (
-      <>
-        <Button variant="filled" size="sm" {...args}>
-          Small
-        </Button>
-        <Button variant="filled" size="md" {...args}>
-          Normal
-        </Button>
-        <Button variant="filled" size="lg" {...args}>
-          Large
-        </Button>
-      </>
-    );
-  },
-};
-
-const check = ICON_MAP("var(--white-pure)").Check;
-const paperPlaneRight = ICON_MAP("var(--white-pure)").PaperPlaneRight;
-const search = ICON_MAP("var(--white-pure)").Search;
-const settings = ICON_MAP("var(--white-pure)").Settings;
 export const WithIcon: StoryObj<StoryProps> = {
   parameters: {
     controls: {
@@ -346,16 +339,20 @@ export const WithIcon: StoryObj<StoryProps> = {
   render: ({ ...args }) => {
     return (
       <>
-        <Button color="green" icon={{ element: check }} {...args}>
+        <Button color="green" icon={{ element: <i className="ph ph-checks"></i> }} {...args}>
           Append
         </Button>
-        <Button color="orange" icon={{ element: paperPlaneRight, position: "end" }} {...args}>
+        <Button
+          color="orange"
+          icon={{ element: <i className="ph ph-paper-plane-tilt"></i>, position: "end" }}
+          {...args}
+        >
           Send
         </Button>
-        <Button color="blue" shape="square" icon={{ element: search }} {...args}>
+        <Button color="blue" shape="square" icon={{ element: <i className="ph ph-magnifying-glass"></i> }} {...args}>
           {args.children}
         </Button>
-        <Button color="blue" shape="circle" icon={{ element: settings }} {...args}>
+        <Button color="blue" shape="circle" icon={{ element: <i className="ph ph-user-circle-gear"></i> }} {...args}>
           {args.children}
         </Button>
       </>
@@ -387,9 +384,6 @@ export const Group: StoryObj<StoryProps> = {
   },
 };
 
-const caretLineDown = ICON_MAP("var(--white-pure)").CaretLineDown;
-const notePencil = ICON_MAP("var(--orange-500)").NotePencil;
-const trash = ICON_MAP("var(--red-500)").Trash;
 export const Action: StoryObj<StoryProps> = {
   name: "Button Action",
   parameters: {
@@ -403,25 +397,31 @@ export const Action: StoryObj<StoryProps> = {
   render: ({ ...args }) => {
     return (
       <>
-        <ButtonAction {...args} title="Dropdown" variant="filled" _color="blue" _icon={{ element: caretLineDown }}>
+        <ButtonAction
+          {...args}
+          title="Dropdown"
+          variant="filled"
+          _color="blue"
+          _icon={{ element: <i className="ph ph-caret-down"></i> }}
+        >
           <Button>Menu Link 1</Button>
           <Button>Menu Link 2</Button>
         </ButtonAction>
 
         <ButtonAction {...args} title="Process" variant="outlined" _color="blue">
-          <Button color="orange" icon={{ element: notePencil }}>
+          <Button color="orange" icon={{ element: <i className="ph ph-note-pencil"></i> }}>
             Edit
           </Button>
-          <Button variant="filled" color="red" icon={{ element: trash }}>
+          <Button variant="filled" color="red" icon={{ element: <i className="ph ph-trash"></i> }}>
             Delete
           </Button>
         </ButtonAction>
 
         <ButtonAction {...args} variant="outlined" _color="blue">
-          <Button color="orange" icon={{ element: notePencil }}>
+          <Button color="orange" icon={{ element: <i className="ph ph-note-pencil"></i> }}>
             Edit
           </Button>
-          <Button variant="filled" color="red" icon={{ element: trash }}>
+          <Button variant="filled" color="red" icon={{ element: <i className="ph ph-trash"></i> }}>
             Delete
           </Button>
         </ButtonAction>

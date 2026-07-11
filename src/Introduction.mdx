@@ -8,28 +8,103 @@
 
 ## Introduction
 
-**HARJS** is a modern UI library optimized for high-performance web applications. It is designed to maximize the developer experience (DX) while delivering a smooth and responsive interface for end users.
+**HARJS** is a modern React UI library built for high-performance, production-grade web
+applications. It is designed to maximize developer experience (DX) through a predictable,
+type-safe API, while delivering a smooth and responsive interface for end users.
+
+The library follows a consistent design language across all components — shared variant,
+color, size, and border radius options — so teams can build cohesive interfaces quickly and
+maintain them with confidence as the product scales.
 
 > ⚡ **Key Advantage: Zero Dependencies**
 >
-> HARJS is built entirely from scratch using **pure/native** web technologies, without relying on any third-party packages. This keeps your project's bundle size lean, minimizes security risks (no more npm audit nightmares), and delivers optimal runtime performance.
+> HARJS is built entirely from scratch using **pure/native** web technologies, without
+> relying on any third-party packages. This keeps your project's bundle size lean,
+> minimizes security risks (no more `npm audit` nightmares), and delivers optimal runtime
+> performance.
 
 ---
 
 ## Key Features
 
 - **Zero Dependencies:** No third-party packages. Lightweight, secure, and reliable.
-- **Accessible:** Built with WAI-ARIA standards in mind.
+- **Accessible:** Built with WAI-ARIA standards in mind, with keyboard navigation and
+  screen reader support out of the box.
 - **Performance-Focused:** Minimal bundle size with maximum rendering performance.
-- **Highly Customizable:** Easily adapt the library to your brand using CSS Custom Properties.
+- **Highly Customizable:** Easily adapt the library to your brand using CSS Custom
+  Properties, without overriding internal styles.
+- **Type-Safe:** Fully typed with TypeScript, providing autocompletion and compile-time
+  safety across every component and prop.
+- **Consistent API:** Shared conventions for variant, color, size, and border radius across
+  the entire component set, reducing the learning curve as your team adopts new components.
+
+---
+
+## Requirements
+
+| Requirement | Version |
+| ------------ | ------- |
+| Node.js       | >= 18   |
+| React         | >= 18   |
 
 ---
 
 ## Installation
 
-Getting started with HARJS Design is simple. Install the package using your preferred package manager:
+Getting started with HARJS is simple. Install the package using your preferred package
+manager:
 
 ```bash
-# Install with npm
+# npm
 npm install @harjs/react-ui
+
+# yarn
+yarn add @harjs/react-ui
+
+# pnpm
+pnpm add @harjs/react-ui
 ```
+
+---
+
+## Quick Start
+
+Import the components you need and start building right away — no additional providers or
+configuration required.
+
+```tsx
+import { Button } from "@harjs/react-ui";
+
+function App() {
+  return (
+    <Button variant="solid" color="primary">
+      Get Started
+    </Button>
+  );
+}
+
+export default App;
+```
+
+---
+
+## Documentation
+
+Every component is documented individually in this Storybook, including live, editable
+examples for each variant, color, size, and state. Use the sidebar to explore the full
+component library, or the **Controls** panel on any example page to experiment with props
+in real time.
+
+---
+
+## Contributing
+
+Contributions, issue reports, and feature requests are welcome. Please refer to the
+[GitHub repository](https://github.com/kaancetin-f/harjs-design-react-ui) for guidelines on
+how to get involved.
+
+---
+
+## License
+
+HARJS is released under the [MIT License](https://github.com/kaancetin-f/harjs-design-react-ui/blob/main/LICENSE).

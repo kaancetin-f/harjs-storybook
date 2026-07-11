@@ -1,4 +1,5 @@
-import { Button, Checkbox, CheckboxGroup, Divider, Grid } from "@harjs/react-ui";
+import Options from "@/infrustructure/shared/Options";
+import { Button, Checkbox, CheckboxGroup, Grid } from "@harjs/react-ui";
 import { BorderRadiuses, Variants } from "@harjs/react-ui/types";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
@@ -88,8 +89,6 @@ export const Variant: StoryObj<StoryProps> = {
   },
 };
 
-const colors = ["blue", "purple", "pink", "red", "orange", "yellow", "green", "teal", "cyan", "gray"] as const;
-const variants = ["filled", "surface", "surface-borderless", "outlined", "dashed"] as const;
 export const Color: StoryObj<StoryProps> = {
   parameters: {
     controls: {
@@ -99,58 +98,15 @@ export const Color: StoryObj<StoryProps> = {
   render: ({ ...args }) => {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        {variants.map((variant) => (
+        {Options.Variant.map((variant) => (
           <div key={variant} style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-            {colors.map((color) => (
+            {Options.Color.map((color) => (
               <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                 <Checkbox {...args} key={`${variant}-${color}`} variant={variant} color={color} label="..." />
                 <Checkbox {...args} key={`${variant}-${color}`} variant={variant} color={color} label="..." checked />
               </div>
             ))}
           </div>
-        ))}
-      </div>
-    );
-  },
-};
-
-export const Disabled: StoryObj<StoryProps> = {
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-  args: {
-    label: "Disabled",
-    disabled: true,
-  },
-  render: ({ ...args }) => {
-    return (
-      <>
-        <Checkbox {...args} />
-        <Checkbox {...args} checked />
-      </>
-    );
-  },
-};
-
-const RADIUS_OPTIONS = ["0", "2", "4", "6", "8", "12", "16", "20", "40", "full"] as const;
-export const Radius: StoryObj<StoryProps> = {
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-  args: {
-    variant: "filled",
-    color: "gray",
-    checked: true,
-  },
-  render: ({ ...args }) => {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        {RADIUS_OPTIONS.map((radius) => (
-          <Checkbox label="Checkbox" variant="filled" border={{ radius }} {...args} />
         ))}
       </div>
     );
@@ -177,6 +133,48 @@ export const Size: StoryObj<StoryProps> = {
           <Checkbox label="Checkbox" variant="filled" size={size} {...args} />
         ))}
       </div>
+    );
+  },
+};
+
+export const Radius: StoryObj<StoryProps> = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  args: {
+    variant: "filled",
+    color: "gray",
+    checked: true,
+  },
+  render: ({ ...args }) => {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        {Options.Radius.map((radius) => (
+          <Checkbox label="Checkbox" variant="filled" border={{ radius }} {...args} />
+        ))}
+      </div>
+    );
+  },
+};
+
+export const Disabled: StoryObj<StoryProps> = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  args: {
+    label: "Disabled",
+    disabled: true,
+  },
+  render: ({ ...args }) => {
+    return (
+      <>
+        <Checkbox {...args} />
+        <Checkbox {...args} checked />
+      </>
     );
   },
 };

@@ -1,3 +1,4 @@
+import Options from "@/infrustructure/shared/Options";
 import { Button, Radio, RadioGroup, Grid } from "@harjs/react-ui";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
@@ -80,8 +81,6 @@ export const Variant: StoryObj<StoryProps> = {
   },
 };
 
-const colors = ["blue", "purple", "pink", "red", "orange", "yellow", "green", "teal", "cyan", "gray"] as const;
-const variants = ["filled", "surface", "surface-borderless", "outlined", "dashed"] as const;
 export const Color: StoryObj<StoryProps> = {
   parameters: {
     controls: {
@@ -91,9 +90,9 @@ export const Color: StoryObj<StoryProps> = {
   render: ({ ...args }) => {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        {variants.map((variant) => (
+        {Options.Variant.map((variant) => (
           <div key={variant} style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-            {colors.map((color) => (
+            {Options.Color.map((color) => (
               <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                 <Radio {...args} key={`${variant}-${color}`} variant={variant} color={color} label="..." />
                 <Radio {...args} key={`${variant}-${color}`} variant={variant} color={color} label="..." checked />
@@ -102,26 +101,6 @@ export const Color: StoryObj<StoryProps> = {
           </div>
         ))}
       </div>
-    );
-  },
-};
-
-export const Disabled: StoryObj<StoryProps> = {
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-  args: {
-    label: "Disabled",
-    disabled: true,
-  },
-  render: ({ ...args }) => {
-    return (
-      <>
-        <Radio {...args} />
-        <Radio {...args} checked />
-      </>
     );
   },
 };
@@ -146,6 +125,26 @@ export const Size: StoryObj<StoryProps> = {
           <Radio label="Radio" variant="filled" size={size} {...args} />
         ))}
       </div>
+    );
+  },
+};
+
+export const Disabled: StoryObj<StoryProps> = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  args: {
+    label: "Disabled",
+    disabled: true,
+  },
+  render: ({ ...args }) => {
+    return (
+      <>
+        <Radio {...args} />
+        <Radio {...args} checked />
+      </>
     );
   },
 };

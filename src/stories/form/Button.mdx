@@ -1,4 +1,4 @@
-import { Meta, Canvas, Story, Controls, ArgTypes, Description, Title, Subtitle } from "@storybook/addon-docs/blocks";
+import { Meta, Canvas, ArgTypes, Title } from "@storybook/addon-docs/blocks";
 
 import * as ButtonStories from "./Button.stories";
 
@@ -6,17 +6,19 @@ import * as ButtonStories from "./Button.stories";
 
 <Title />
 
-`Button` is the core interactive component used to trigger an action or submit a form. It
-comes with multiple color, variant, size, and border radius options, and it supports icons
-so you can reinforce the action visually. For grouped or layered actions, it also pairs with
-`ButtonGroup` and `ButtonAction` to keep multiple buttons consistent with less code.
+`Button` is the primary interactive component used to trigger actions, submit forms, and
+initiate user-driven workflows throughout an application.
 
-```typescript
+It supports multiple visual variants, colors, sizes, border radius options, and optional
+icons, making it suitable for a wide range of interface patterns. For more advanced
+interaction scenarios, it integrates seamlessly with `ButtonGroup` and `ButtonAction` to
+create consistent grouped and menu-based actions.
+
+```tsx
 import { Button } from "@harjs/react-ui";
 ```
 
-> **Note:** All examples below are live — you can use Storybook's Controls panel to change
-> props and instantly test the component's behavior.
+> **Note:** All examples below are interactive. Use Storybook Controls to experiment with the available properties and observe how the component behaves in different configurations.
 
 ---
 
@@ -42,24 +44,14 @@ across the product.
 
 <Canvas of={ButtonStories.Color} />
 
-## Error
+## Size
 
-A dedicated error state is available to represent destructive or irreversible actions, such
-as deleting a record or canceling a process that can't be undone. Using this state
-consistently helps users pause and reconsider before triggering an action they can't easily
-reverse.
+The component offers multiple height options that can be chosen based on context. Smaller
+sizes are preferred for compact contexts like toolbars or inline actions, mid-range sizes
+serve as the default for standard forms and pages, and larger sizes are used on mobile or
+for calls-to-action that need to stand out and draw attention.
 
-<Canvas of={ButtonStories.Error} />
-
-## Disabled
-
-When the `disabled` prop is set to `true`, the button is closed off to user interaction,
-visually dimmed, and the cursor switches to `not-allowed`. This state is used when an action
-isn't currently available — for example, while a required field is empty or a previous step
-hasn't been completed yet. For accessibility, `disabled` buttons are also automatically
-skipped by screen readers.
-
-<Canvas of={ButtonStories.Disabled} />
+<Canvas of={ButtonStories.Size} />
 
 ## Border Radius
 
@@ -71,14 +63,24 @@ generally recommended to use a single border radius value across all buttons.
 
 <Canvas of={ButtonStories.Radius} />
 
-## Size
+## Disabled
 
-The component offers multiple height options that can be chosen based on context. Smaller
-sizes are preferred for compact contexts like toolbars or inline actions, mid-range sizes
-serve as the default for standard forms and pages, and larger sizes are used on mobile or
-for calls-to-action that need to stand out and draw attention.
+When the `disabled` prop is set to `true`, the button is closed off to user interaction,
+visually dimmed, and the cursor switches to `not-allowed`. This state is used when an action
+isn't currently available — for example, while a required field is empty or a previous step
+hasn't been completed yet. For accessibility, `disabled` buttons are also automatically
+skipped by screen readers.
 
-<Canvas of={ButtonStories.Size} />
+<Canvas of={ButtonStories.Disabled} />
+
+## Error
+
+A dedicated error state is available to represent destructive or irreversible actions, such
+as deleting a record or canceling a process that can't be undone. Using this state
+consistently helps users pause and reconsider before triggering an action they can't easily
+reverse.
+
+<Canvas of={ButtonStories.Error} />
 
 ## With Icon
 

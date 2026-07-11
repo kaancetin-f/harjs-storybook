@@ -1,13 +1,10 @@
-import { COLOR_OPTIONS, RADIUS_OPTIONS, SIZE_OPTIONS, VARIANT_OPTIONS } from "@/infrustructure/shared/Array";
+import Options from "@/infrustructure/shared/Options";
 import { Grid, Select } from "@harjs/react-ui";
-import { type BorderRadiuses, type Color, type Option, type Variants } from "@harjs/react-ui/types";
+import type { Option, BorderRadiuses } from "@harjs/react-ui/types";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-const { Row, Column, Flex } = Grid;
-
-// Tüm örneklerde kullanılan sabit örnek veri kümesidir.
-const OPTIONS: Option[] = [
+const Countries: Option[] = [
   { value: "tr", text: "Türkiye" },
   { value: "de", text: "Almanya" },
   { value: "fr", text: "Fransa" },
@@ -16,25 +13,18 @@ const OPTIONS: Option[] = [
   { value: "nl", text: "Hollanda" },
 ];
 
-type StoryProps = {
-  variant?: (typeof VARIANT_OPTIONS)[number];
-  color?: Color;
-  size?: (typeof SIZE_OPTIONS)[number];
+const { Row, Column, Flex } = Grid;
+
+type StoryProps = React.ComponentProps<typeof Select> & {
   borderRadius?: BorderRadiuses;
-  upperCase?: boolean;
-  disabled?: boolean;
+  icon?: any;
+  iconElement?: any;
+  iconPosition?: "start" | "end";
   readOnly?: boolean;
-  placeholder?: string;
-  multiple?: boolean;
-  clear?: boolean;
   validationText?: string;
-  validationTextVisibility?: "visible" | "hidden";
-  statusColor?: Color;
-  selectedVariant?: Variants;
-  selectedColor?: Color;
-  onSearch?: (searchText: string) => void;
-  onClick?: () => void;
-  onCreate?: (option: Option) => void;
+  validationScrollTo?: string;
+  configClear?: boolean;
+  configValidationText?: "visible" | "hidden";
 };
 
 const meta = {
@@ -47,204 +37,192 @@ export default meta;
 
 type Story = StoryObj<StoryProps>;
 
-/**
- * `Select`, tekil seçim modunda `value` / `onChange` çifti ile kontrol edilen (controlled) bir
- * bileşendir. Bu yardımcı sarmalayıcı, örnekler içerisinde tekrar eden state yönetimini
- * sadeleştirmek ve `config` nesnesini düz (flat) story prop'larından yeniden oluşturmak için
- * kullanılmıştır.
- */
-const ControlledSelect = ({
-  initialValue,
-  borderRadius,
-  clear = true,
-  validationTextVisibility = "visible",
-  validationText,
-  ...attributes
-}: StoryProps & { initialValue?: Option }) => {
-  const [value, setValue] = useState<Option | undefined>(initialValue);
-
-  return (
-    <Select
-      {...(attributes as any)}
-      options={OPTIONS}
-      value={value}
-      onChange={setValue}
-      border={{ radius: borderRadius as any }}
-      config={{ clear, validation: { text: validationTextVisibility } }}
-      validation={validationText ? { text: validationText } : undefined}
-    />
-  );
-};
-
-/**
- * `Multiple` mod için aynı amaçla kullanılan sarmalayıcıdır; ek olarak seçilmiş öğelerin
- * `Chip` görünümünü belirleyen `status` alanını da düz prop'lardan yeniden kurar.
- */
-const ControlledMultipleSelect = ({
-  initialValue = [],
-  borderRadius,
-  clear = true,
-  validationTextVisibility = "visible",
-  validationText,
-  statusColor,
-  selectedVariant,
-  selectedColor,
-  ...attributes
-}: StoryProps & { initialValue?: Option[] }) => {
-  const [value, setValue] = useState<Option[]>(initialValue);
-
-  return (
-    <Select
-      {...(attributes as any)}
-      multiple
-      options={OPTIONS}
-      value={value}
-      onChange={setValue}
-      border={{ radius: borderRadius as any }}
-      config={{ clear, validation: { text: validationTextVisibility } }}
-      validation={validationText ? { text: validationText } : undefined}
-      status={{ color: statusColor, selected: { variant: selectedVariant, color: selectedColor } }}
-    />
-  );
-};
-
 export const Editor: Story = {
   args: {
     variant: "outlined",
     color: "gray",
     size: "md",
-    borderRadius: "4",
-    placeholder: "Bir ülke seçin",
-    disabled: false,
-    readOnly: false,
     upperCase: false,
-    clear: true,
-    validationTextVisibility: "visible",
+    borderRadius: "4",
+    iconElement: "None",
+    disabled: false,
   },
   argTypes: {
-    variant: {
-      description:
-        "Controls the visual emphasis of the closed field, matching `Input`'s variant options (filled, outlined, dashed, surface-borderless, borderless).",
-      control: "select",
-      options: VARIANT_OPTIONS,
-      table: { category: "Style", type: { summary: "Variants" }, defaultValue: { summary: '"outlined"' } },
-    },
-    color: {
-      description: "The semantic or brand color applied to the field's border, text, and focus state.",
-      control: "select",
-      options: COLOR_OPTIONS,
-      table: { category: "Style", type: { summary: "Color" }, defaultValue: { summary: '"gray"' } },
-    },
-    size: {
-      description: "The height of the field.",
-      control: "select",
-      options: SIZE_OPTIONS,
-      table: { category: "Style", type: { summary: "Sizes" }, defaultValue: { summary: '"md"' } },
-    },
-    borderRadius: {
-      name: "Border Radius",
-      description: "The corner radius applied to the field, passed through as `border.radius`.",
-      control: "select",
-      options: RADIUS_OPTIONS,
-      table: { category: "Style", type: { summary: "BorderRadiuses" }, defaultValue: { summary: '"4"' } },
-    },
-    upperCase: {
-      name: "Upper Case",
-      description: "When true, characters typed into the field (for search/creation) are automatically capitalized.",
-      control: "boolean",
-      table: { category: "Style", type: { summary: "boolean" }, defaultValue: { summary: "false" } },
-    },
-    disabled: {
-      description: "When true, the field cannot be opened, edited, or cleared, and is rendered in a dimmed state.",
-      control: "boolean",
-      table: { category: "State", type: { summary: "boolean" }, defaultValue: { summary: "false" } },
-    },
-    readOnly: {
-      name: "Read Only",
-      description: "When true, the field's text cannot be edited directly, but the dropdown can still be opened to change the selection.",
-      control: "boolean",
-      table: { category: "State", type: { summary: "boolean" }, defaultValue: { summary: "false" } },
-    },
-    placeholder: {
-      description: "The placeholder text shown when no option is selected.",
-      control: "text",
-      table: { category: "Content", type: { summary: "string" } },
-    },
     border: { table: { disable: true } },
-    options: { table: { disable: true } },
-    multiple: { table: { disable: true } },
-    status: { table: { disable: true } },
+    icon: { table: { disable: true } },
     config: { table: { disable: true } },
-    validationText: { table: { disable: true } },
-    clear: {
-      description:
-        "When true (the `config.clear` default), a clear ('x') button is rendered so the current selection can be removed in a single click.",
-      control: "boolean",
-      table: { category: "Config", type: { summary: "boolean" }, defaultValue: { summary: "true" } },
+
+    options: {
+      name: "Options",
+      control: {
+        type: "object",
+      },
+      description: "Defines the list of options available for selection in the component.",
+      table: {
+        type: { summary: "Option[]" },
+        defaultValue: { summary: "[]" },
+      },
     },
-    validationTextVisibility: {
-      name: "Validation Text Visibility",
+
+    value: {
+      name: "Value",
+      control: {
+        type: "object",
+      },
       description:
-        "Maps to `config.validation.text`. Controls whether the validation message is actually rendered under the field ('visible') or only used to color the field red without showing the text ('hidden').",
-      control: "select",
-      options: ["visible", "hidden"],
-      table: { category: "Config", type: { summary: '"visible" | "hidden"' }, defaultValue: { summary: '"visible"' } },
+        "Specifies the currently selected option or options. Supports both single and multiple selection modes.",
+      table: {
+        type: { summary: "Option[] | Option | undefined" },
+        defaultValue: { summary: "[]" },
+      },
     },
+
     onSearch: {
-      name: "On Search",
-      description:
-        "Called with the current search text whenever the user types into the field (single mode) or the search box (multiple mode). When provided, filtering is expected to be handled externally (e.g. server-side) instead of the built-in local filter.",
-      control: false,
-      table: { category: "Events", type: { summary: "(searchText: string) => void" } },
+      name: "OnSearch",
+      control: {
+        type: "object",
+      },
+      description: "Callback invoked whenever the search input value changes.",
+      table: {
+        type: { summary: "(searchText: string) => void" },
+      },
     },
+
     onClick: {
-      name: "On Click",
-      description: "Called whenever the closed field is clicked, in addition to the dropdown being toggled open.",
-      control: false,
-      table: { category: "Events", type: { summary: "() => void" } },
+      name: "OnClick",
+      control: {
+        type: "object",
+      },
+      description: "Callback invoked when the select component is clicked.",
+      table: {
+        type: { summary: "() => void" },
+      },
     },
+
     onCreate: {
-      name: "On Create",
-      description:
-        "When provided, an 'add new option' row is rendered whenever the typed search text doesn't match any existing option, letting the user create and immediately select a new entry.",
-      control: false,
-      table: { category: "Events", type: { summary: "(option: Option) => void" } },
+      name: "OnCreate",
+      control: {
+        type: "object",
+      },
+      description: "Callback invoked when a new option is created by the user.",
+      table: {
+        type: { summary: "(option: Option) => void" },
+      },
     },
+
+    readOnly: {
+      name: "ReadOnly",
+      control: {
+        type: "boolean",
+      },
+      description:
+        "Prevents the selected value from being modified while keeping the component interactive for viewing.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "False" },
+      },
+    },
+
+    // #region Config
+    configClear: {
+      name: "Clear",
+      control: {
+        type: "select",
+      },
+      options: ["0", "2", "4", "6", "8", "12", "16", "20", "40", "full"],
+      description: "Controls the spacing between the selected value and the clear button.",
+      table: {
+        category: "Config",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "True" },
+      },
+    },
+
+    configValidationText: {
+      name: "Validation Text",
+      control: {
+        type: "select",
+        labels: {
+          visible: "Visible",
+          hidden: "Hidden",
+        },
+      },
+      options: ["visible", "hidden"],
+      description: "Determines whether the validation message is displayed below the select component.",
+      table: {
+        category: "Config",
+        type: { summary: "string" },
+        defaultValue: { summary: "Visible" },
+      },
+    },
+    // #endregion
   },
-  render: (args) => <ControlledSelect {...args} />,
+  render: (args: StoryProps) => {
+    return <Select {...args} border={{ radius: args.borderRadius as BorderRadiuses }} />;
+  },
 };
 
 export const Variant: Story = {
   parameters: { controls: { disable: true } },
   args: {
     color: "gray",
+    options: Countries,
     borderRadius: "4",
   },
-  render: (args) => (
-    <Flex flexDirection="row" gap="15px" flexWrap="wrap">
-      <ControlledSelect {...args} variant="filled" placeholder="Filled" />
-      <ControlledSelect {...args} variant="outlined" placeholder="Outlined" />
-      <ControlledSelect {...args} variant="dashed" placeholder="Dashed" />
-      <ControlledSelect {...args} variant="surface-borderless" placeholder="Surface Borderless" />
-      <ControlledSelect {...args} variant="borderless" placeholder="Borderless" />
+  render: (args: StoryProps) => (
+    <Flex flexDirection="row" gap="15px">
+      <Select {...args} variant="filled" placeholder="Filled" />
+      <Select {...args} variant="outlined" placeholder="Outlined" />
+      <Select {...args} variant="dashed" placeholder="Dashed" />
+      <Select {...args} variant="surface-borderless" placeholder="Surface Borderless" />
+      <Select {...args} variant="borderless" placeholder="Borderless" />
     </Flex>
   ),
 };
 
 export const Color: Story = {
   parameters: { controls: { disable: true } },
-  args: { borderRadius: "4" },
-  render: (args) => (
-    <Flex flexDirection="column" gap="16px">
-      {VARIANT_OPTIONS.map((variant) => (
-        <Flex key={variant} flexDirection="row" alignItems="center" gap="12px" flexWrap="wrap">
-          {COLOR_OPTIONS.map((color) => (
-            <Flex key={`${variant}-${color}`} flexDirection="column" gap="4px">
-              <ControlledSelect {...args} variant={variant} color={color} placeholder="..." />
-              <ControlledSelect {...args} variant={variant} color={color} placeholder="..." initialValue={OPTIONS[0]} />
-            </Flex>
-          ))}
-        </Flex>
+  args: { width: 65, placeholder: "..." },
+  render: () => {
+    // states
+    const [value, setValue] = useState<Option | undefined>();
+
+    return (
+      <Flex flexDirection="column" gap="16px">
+        {Options.Variant.map((variant) => (
+          <Flex key={variant} flexDirection="row" alignItems="center" gap="12px" flexWrap="wrap">
+            {Options.Color.map((color) => (
+              <Flex key={`${variant}-${color}`} flexDirection="column" gap="4px">
+                <Select variant={variant} color={color} options={Countries} value={value} onChange={setValue} />
+                <Select variant={variant} color={color} options={Countries} value={value} onChange={setValue} />
+              </Flex>
+            ))}
+          </Flex>
+        ))}
+      </Flex>
+    );
+  },
+};
+
+export const Size: Story = {
+  parameters: { controls: { disable: true } },
+  args: { color: "gray" },
+  render: (args: StoryProps) => (
+    <Flex flexDirection="column" gap="15px">
+      {Options.Size.map((size) => (
+        <Select key={size} {...args} size={size} placeholder={`Size ${size}`} />
+      ))}
+    </Flex>
+  ),
+};
+
+export const Radius: Story = {
+  parameters: { controls: { disable: true } },
+  args: { color: "gray" },
+  render: (args: StoryProps) => (
+    <Flex flexDirection="column" gap="15px">
+      {Options.Radius.map((radius) => (
+        <Select key={radius} {...args} border={{ radius }} placeholder={`Radius ${radius}`} />
       ))}
     </Flex>
   ),
@@ -256,10 +234,10 @@ export const Disabled: Story = {
     placeholder: "Disabled",
     disabled: true,
   },
-  render: (args) => (
+  render: () => (
     <Flex flexDirection="column" gap="15px">
-      <ControlledSelect {...args} />
-      <ControlledSelect {...args} initialValue={OPTIONS[0]} />
+      <Select options={Countries} value={Countries.find((x) => x.value === "tr")} onChange={() => {}} />
+      <Select options={Countries} value={undefined} onChange={() => {}} />
     </Flex>
   ),
 };
@@ -271,76 +249,58 @@ export const ReadOnly: Story = {
     placeholder: "Read Only",
     readOnly: true,
   },
-  render: (args) => <ControlledSelect {...args} initialValue={OPTIONS[1]} />,
-};
-
-export const Radius: Story = {
-  parameters: { controls: { disable: true } },
-  args: { color: "gray" },
-  render: (args) => (
+  render: () => (
     <Flex flexDirection="column" gap="15px">
-      {RADIUS_OPTIONS.map((radius) => (
-        <ControlledSelect key={radius} {...args} borderRadius={radius} placeholder={`Radius ${radius}`} />
-      ))}
-    </Flex>
-  ),
-};
-
-export const Size: Story = {
-  parameters: { controls: { disable: true } },
-  args: { color: "gray" },
-  render: (args) => (
-    <Flex flexDirection="column" gap="15px">
-      {SIZE_OPTIONS.map((size) => (
-        <ControlledSelect key={size} {...args} size={size} placeholder={`Size ${size}`} />
-      ))}
+      <Select options={Countries} value={Countries.find((x) => x.value === "tr")} onChange={() => {}} readOnly />
+      <Select options={Countries} value={undefined} onChange={() => {}} readOnly />
     </Flex>
   ),
 };
 
 export const Validation: Story = {
   parameters: { controls: { disable: true } },
-  args: { color: "gray", validationText: "Value is required." },
-  render: (args) => (
-    <Flex flexDirection="row" gap="15px" flexWrap="wrap">
-      <ControlledSelect {...args} validationTextVisibility="visible" placeholder="Visible Validation" />
-      <ControlledSelect {...args} validationTextVisibility="hidden" placeholder="Hidden Validation" />
-    </Flex>
-  ),
+  args: { color: "gray", validation: { text: "Value is required." } },
+  render: (args: StoryProps) => <Select {...args} placeholder="Validation Select" />,
 };
 
 export const ClearButton: Story = {
   parameters: { controls: { disable: true } },
-  args: { color: "gray" },
-  render: (args) => (
-    <Row>
-      <Column size={6}>
-        <ControlledSelect {...args} clear={false} placeholder="Without Clear" initialValue={OPTIONS[0]} />
-      </Column>
+  render: () => {
+    // states
+    const [value, setValue] = useState<Option | undefined>();
 
-      <Column size={6}>
-        <ControlledSelect {...args} clear={true} placeholder="With Clear" initialValue={OPTIONS[0]} />
-      </Column>
-    </Row>
-  ),
+    return (
+      <Row>
+        <Column size={6}>
+          <Select options={Countries} value={value} onChange={(option) => setValue(option)} config={{ clear: true }} />
+        </Column>
+
+        <Column size={6}>
+          <Select options={Countries} value={value} onChange={(option) => setValue(option)} config={{ clear: false }} />
+        </Column>
+      </Row>
+    );
+  },
 };
 
 export const WithSearch: Story = {
   parameters: { controls: { disable: true } },
   args: { color: "gray" },
-  render: (args) => {
+  render: () => {
+    // states
     const [value, setValue] = useState<Option | undefined>(undefined);
-    const [options, setOptions] = useState<Option[]>(OPTIONS);
+    const [options, setOptions] = useState<Option[]>(Countries);
 
     return (
       <Select
-        {...args}
         options={options}
         value={value}
         onChange={setValue}
         placeholder="Search a country"
         onSearch={(searchText) => {
-          setOptions(OPTIONS.filter((option) => option.text.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())));
+          setOptions(
+            Countries.filter((option) => option.text.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())),
+          );
         }}
       />
     );
@@ -349,20 +309,20 @@ export const WithSearch: Story = {
 
 export const WithCreate: Story = {
   parameters: { controls: { disable: true } },
-  args: { color: "gray" },
-  render: (args) => {
-    const [options, setOptions] = useState<Option[]>(OPTIONS);
+  render: () => {
+    // states
+    const [options, setOptions] = useState<Option[]>(Countries);
     const [value, setValue] = useState<Option | undefined>(undefined);
 
     return (
       <Select
-        {...args}
         options={options}
         value={value}
         onChange={setValue}
-        placeholder="Bir ülke seçin ya da ekleyin"
+        placeholder="Search a country"
         onCreate={(option) => {
           const newOption = { ...option, value: option.text };
+
           setOptions((prev) => [...prev, newOption]);
           setValue(newOption);
         }}
@@ -372,42 +332,22 @@ export const WithCreate: Story = {
 };
 
 export const Multiple: Story = {
-  args: {
-    color: "gray",
-    borderRadius: "4",
-    placeholder: "Ülke seçin",
-    clear: true,
-    validationTextVisibility: "visible",
-    statusColor: "gray",
-    selectedVariant: "filled",
-    selectedColor: "blue",
+  parameters: { controls: { disable: true } },
+  render: () => {
+    // states
+    const [values, setValues] = useState<Option[]>([]);
+
+    return (
+      <>
+        <Select
+          options={Countries}
+          value={values}
+          onChange={setValues}
+          color="green"
+          status={{ color: "green", selected: { color: "orange", variant: "surface-borderless" } }}
+          multiple
+        />
+      </>
+    );
   },
-  argTypes: {
-    statusColor: {
-      name: "Status Color",
-      description:
-        "Maps to `status.color`. The default chip color used for selected options when `status.selected.color` isn't provided.",
-      control: "select",
-      options: COLOR_OPTIONS,
-      table: { category: "Status", type: { summary: "Color" } },
-    },
-    selectedVariant: {
-      name: "Selected Variant",
-      description: "Maps to `status.selected.variant`. The `Chip` variant used to render each selected option.",
-      control: "select",
-      options: VARIANT_OPTIONS,
-      table: { category: "Status", type: { summary: "Variants" }, defaultValue: { summary: '"filled"' } },
-    },
-    selectedColor: {
-      name: "Selected Color",
-      description: "Maps to `status.selected.color`. The `Chip` color used to render each selected option.",
-      control: "select",
-      options: COLOR_OPTIONS,
-      table: { category: "Status", type: { summary: "Color" } },
-    },
-    border: { table: { disable: true } },
-    options: { table: { disable: true } },
-    config: { table: { disable: true } },
-  },
-  render: (args) => <ControlledMultipleSelect {...args} initialValue={[OPTIONS[0], OPTIONS[2]]} />,
 };
