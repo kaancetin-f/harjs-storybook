@@ -345,6 +345,7 @@ export const Multiple: Story = {
           onChange={setValues}
           color="green"
           status={{ color: "green", selected: { color: "orange", variant: "surface-borderless" } }}
+          placeholder="Multiple Select"
           multiple
         />
       </>
