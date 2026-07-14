@@ -1,0 +1,96 @@
+import { Meta, Canvas, Story, Controls, ArgTypes, Description, Title, Subtitle } from "@storybook/addon-docs/blocks";
+
+import * as SwitchStories from "./Switch.stories";
+
+<Meta of={SwitchStories} />
+
+<Title />
+
+`Switch` is the core form component used to let users instantly toggle a single binary
+setting on or off (e.g. "Enable notifications"). It comes with multiple color, variant,
+size, and border radius options, and can optionally display a text label describing what
+it controls.
+
+> **Note:** All examples below are live — you can use Storybook's Controls panel to change
+> props and instantly test the component's behavior.
+
+> **Note:** Use `Switch` when the change should take effect immediately, without requiring
+> a separate submit action. If the choice is meant to be reviewed and confirmed later as
+> part of a larger form, use a **Checkbox** instead.
+
+```typescript
+import { Switch } from "@harjs/react-ui";
+```
+
+---
+
+## Variant
+
+`Switch` offers several visual variants, each carrying a different level of emphasis.
+Variants with a stronger fill or border stand out more clearly and work well when the
+setting itself carries weight, while lighter, more outlined options blend into the
+surrounding interface and suit denser settings lists where many switches appear together.
+For consistency in your design language, it's recommended to use a single variant within
+the same form.
+
+<Canvas of={SwitchStories.Variant} />
+
+## Color
+
+The component supports a wide range of color options so it can align with your brand
+palette. Color here isn't just decorative — it can be used to convey meaning, such as
+tying a switch's color to the category of setting it controls, or to a status it
+represents. Note that the color is only applied while the switch is checked; an unchecked
+switch always renders in a neutral gray regardless of the `color` prop. Using semantic
+colors consistently across the project helps users build a reliable mental model of what
+each color means.
+
+<Canvas of={SwitchStories.Color} />
+
+## Size
+
+The component offers multiple size options that can be chosen based on context. Smaller
+sizes are preferred for compact, dense settings lists where many options are shown at once,
+while larger sizes improve touch-target area and visibility on mobile or in forms where the
+setting needs to stand out.
+
+<Canvas of={SwitchStories.Size} />
+
+## Border Radius
+
+Corner rounding can be customized across a wide range of options and is an important visual
+variable that determines the overall "hard/soft" feel of your design system. Sharper,
+square corners tend to read as more structured and align with denser, data-heavy
+interfaces, while fully rounded corners — the component's default — feel softer and more
+approachable. For consistency across the project, it's generally recommended to use a
+single border radius value across all form controls.
+
+<Canvas of={SwitchStories.Radius} />
+
+## Disabled
+
+Prevents any user interaction while visually indicating that the switch is currently
+inactive — the field is dimmed and the cursor switches to `not-allowed`. This is useful for
+conditional forms where a setting depends on another field being filled in first, or for
+options that are temporarily unavailable. For accessibility, `disabled` switches are also
+automatically skipped by screen readers.
+
+<Canvas of={SwitchStories.Disabled} />
+
+## Validation
+
+Displays feedback states such as error or success markers. When a validation rule fails —
+for example, a required agreement switch left unchecked — the component visually adapts to
+draw the user's attention to the correction that's needed before the form can proceed.
+
+<Canvas of={SwitchStories.Validation} />
+
+---
+
+## All Props (API Reference)
+
+The table below lists all the props supported by the `Switch` component, along with their
+types and default values. For detailed type definitions, see the `@harjs/react-ui/types`
+package.
+
+<ArgTypes of={SwitchStories.Editor} />

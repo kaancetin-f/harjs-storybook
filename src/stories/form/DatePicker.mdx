@@ -1,0 +1,114 @@
+import { Meta, Canvas, Story, Controls, ArgTypes, Description, Title, Subtitle } from "@storybook/addon-docs/blocks";
+
+import * as DatePickerStories from "./DatePicker.stories";
+
+<Meta of={DatePickerStories} />
+
+<Title />
+
+`DatePicker` is the form component used to let users pick a date (and optionally a time)
+through a popover calendar. Internally it is built on top of `Input`, so it inherits all of
+`Input`'s color, variant, size, and border radius options; the selected value is delivered
+through the `onChange` callback as an ISO 8601 string.
+
+> **Note:** All examples below are live — you can use Storybook's Controls panel to change
+> props and instantly test the component's behavior.
+
+---
+
+## Variant
+
+`DatePicker` offers several visual variants, each carrying a different level of emphasis.
+Variants with a stronger border stand out more clearly in standard forms, while softer,
+borderless options blend into the surrounding interface and work well for embedded or
+low-emphasis contexts. A dashed-style variant can also be useful for more specific cases,
+such as signaling that a field is still a draft or hasn't been filled in yet. For
+consistency in your design language, it's recommended to use a single variant within the
+same form.
+
+<Canvas of={DatePickerStories.Variant} />
+
+## Color
+
+The component supports a wide range of color options so it can align with your brand
+palette. The table below shows a side-by-side comparison of each color across the core
+variants, both empty and filled with a selected date. This matrix should be used as a
+reference when choosing the correct color, especially for validation states such as error,
+warning, and success. Color isn't just a stylistic choice here — it's also a way to give the
+user immediate feedback, so it's important to use semantic colors consistently across the
+project.
+
+## Disabled
+
+When the `disabled` prop is set to `true`, the calendar can no longer be opened, the field
+is visually dimmed, and the cursor switches to `not-allowed`. This state is used for
+read-only data, permission restrictions, or date fields waiting for a previous step to be
+completed. For accessibility, `disabled` fields are also automatically skipped by screen
+readers.
+
+<Canvas of={DatePickerStories.Disabled} />
+
+## Border Radius
+
+Corner rounding can be customized across a wide range of options and is an important visual
+variable that determines the overall "hard/soft" feel of your design system. Sharper,
+square corners tend to read as more structured and corporate, while fully rounded (pill-
+shaped) corners feel friendlier and more modern. For consistency across the project, it's
+generally recommended to use a single border radius value across all forms.
+
+<Canvas of={DatePickerStories.Radius} />
+
+## Size
+
+The component offers multiple height options that can be chosen based on context. Smaller
+sizes are preferred for compact contexts like in-table editing, mid-range sizes serve as
+the default for standard forms, and larger sizes are used on mobile or for date fields
+that need to stand out and draw attention.
+
+<Canvas of={DatePickerStories.Size} />
+
+## Validation
+
+Displays validation feedback such as error or success states. Useful for required date
+selections or form validation scenarios where a date must be chosen before continuing.
+
+<Canvas of={DatePickerStories.Validation} />
+
+## Locale
+
+The `config.locale` option controls the language used for calendar and clock texts, such as
+month and day names, and the footer button labels. It currently supports Turkish (`tr`) and
+English (`en`), and defaults to Turkish when not provided. This is useful for
+internationalized forms where the same `DatePicker` needs to adapt to the user's selected
+application language.
+
+<Canvas of={DatePickerStories.Locale} />
+
+## Clock
+
+When `config.isClock` is set to `true`, the component switches the underlying field to a
+datetime value and displays an additional hour/minute selection panel alongside the
+calendar. This is useful for scheduling scenarios where both a date and a precise time need
+to be captured together, such as appointment booking or event scheduling.
+
+<Canvas of={DatePickerStories.WithClock} />
+
+## Footer Buttons
+
+When `config.isFooterButton` is set to `true`, a footer is displayed below the calendar with
+a "Now" action that immediately selects the current date (and time, if `isClock` is also
+enabled) and, for date-only pickers, an "Okay" action to confirm the current selection
+without picking a specific day. This speeds up common cases like resetting a field to today
+without navigating the calendar manually.
+
+<Canvas of={DatePickerStories.WithFooterButton} />
+
+---
+
+## All Props (API Reference)
+
+The table below lists all the props supported by the `DatePicker` component, along with
+their types and default values. For detailed type definitions of the inherited `Input`
+props, see the `@harjs/react-ui/types` package.
+
+<ArgTypes of={DatePickerStories.Editor} />
